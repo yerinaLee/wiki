@@ -2,6 +2,7 @@
 Java로 프로그래밍을 해야함 : JDK
 Java 프로그램을 실행시켜야함 : JRE
 
+![](../0.images/Pasted%20image%2020260306132145.png)
 ![](Pasted%20image%2020260306111855.png)
 
 ![](Pasted%20image%2020260306111916.png)
