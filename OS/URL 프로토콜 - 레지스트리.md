@@ -1,42 +1,58 @@
-## 프로토콜
+## 1. URL 프로토콜
 #### 종류
-1. 일반 프로토콜
-2. 사용자 정의 프로토콜
+**1. 일반 프로토콜**
+일반 프로토콜은 OS/브라우저에 기본 탑재되어있음. 따라서 별도 등록 필요 없음
+- http://
+- https://
+- ftp://
+- mailto:
+
+**2. 사용자 정의 프로토콜**
+개발자가 직접 만든 프로토콜. 반드시 **레지스트리 등록**이 필요함
+- kakaotalk://
+- discord://
+- zoommtg://
+- gameqa:
 
 #### 형식
-\[프로토콜]:\[데이터]
-\[프로토콜]://\[데이터]
+```
+[프로토콜]:[데이터]
+[프로토콜]://[데이터]
+```
+위 형태로 만든 URL로 브라우저에서 오픈한다.
 
-### 1) 일반 프로토콜
+#### URL 프로토콜 호출 스텝
+1. 브라우저가 `"gameqa"` 프로토콜 확인
+- 기본 프로토콜 : 브라우저단에서 네트워크 호출
+- 커스텀 프로토콜 : OS 레지스트리에서 프로토콜 서치
 
-사용자 정의 프로토콜 호출
-
-?? 그럼 전체 정의 프로토콜은 http, https 이런건가?
-🌐 일반(기본) 프로토콜
-OS/브라우저에 기본 탑재:
-http://
-https://
-ftp://
-mailto:
-
-👉 별도 등록 필요 없음
-
-🛠 사용자 정의 프로토콜
-개발자가 직접 만든 것:
-kakaotalk://
-discord://
-zoommtg://
-happytuk-fs1qa:
-👉 반드시 레지스트리 등록 필요
+2. 레지스트리에 연결된 exe 실행
+3. 뒤에 문자열 전체를 프로그램에 전달
 
 
 
-1. url 형식 
-[프로토콜] : [데이터] 형태로 브라우저에서 오픈한다.
+## 2. 레지스트리
+
+#### 레지스트리 종류
 
 ```
-window.location = uri;
+HKEY_CLASSES_ROOT\[protocol]                    ← (통합 뷰)
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Classes\[protocol]  ← (모든 사용자 공통)
+HKEY_CURRENT_USER\Software\Classes\[protocol]   ← (현재 사용자 전용)
 ```
+
+#### 레지스트리 공통 구조
+```
+[protocol or extension]
+ ├── (Default)         ← (설명)
+ ├── URL Protocol      ← (프로토콜일 때만)
+ └── shell
+      └── open
+           └── command ← (실제 실행)
+```
+
+
 
 HKEY_CLASSES_ROOT\[ protocol ]
 
@@ -68,12 +84,6 @@ HKEY_CLASSES_ROOT(HKCR)\ [ protocol ]
 
 * HKLM, HKCU 공통구조
 
-[protocol or extension]
- ├── (Default)         ← (설명)
- ├── URL Protocol   ← (프로토콜일 때만)
- └── shell
-      └── open
-           └── command ← (실제 실행)
 
 
 
